@@ -3,7 +3,7 @@ const cors = require("cors");         // allow frontend to talk to backend
 const bodyParser = require("body-parser"); // read JSON from requests
 
 const app = express();                // create the Express app
-const PORT = 7000;                    // choose port (frontend might run on 3000)
+const PORT = 4000;                    // choose port (frontend might run on 3000)
 
 // middlewares (extra features)
 app.use(cors());                      // solves CORS errors when frontend calls backend

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator - Banking Advisor</title>
+    
+    <link rel="stylesheet" href="styles/general.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/grids.css">
+    <link rel="stylesheet" href="styles/footer.css">
+    <link rel="stylesheet" href="styles/ai-chat-sidebar.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">LOGO</div>
+        <div class="nav-links">
+            <a href="index.html#home">Home</a>
+            <a href="calculator.html" class="active">Calculator</a>
+            <a href="index.html#services">Services</a>
+            <a href="#ai-assistant" class="ai-assistant">
+                <span class="ai-glow-ring">
+                    <img src="bank-logos/siri.png" alt="AI Assistant" class="ai-siri-img" />
+                </span>
+            </a>
+        </div>
+    </nav>
+
+    <section class="finance-advisor">
+        <div class="container">
+            <h2>Financial Planning Calculator</h2>
+            <div class="calculator-form">
+                <div class="form-group">
+                    <label for="tenure">Investment Tenure (Years)</label>
+                    <input type="number" id="tenure" min="1" max="30" value="5">
+                </div>
+                <div class="form-group">
+                    <label for="timePeriod">Time Period</label>
+                    <select id="timePeriod">
+                        <option value="monthly">Monthly</option>
+                        <option value="quarterly">Quarterly</option>
+                        <option value="yearly">Yearly</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="amount">Investment Amount</label>
+                    <input type="number" id="amount" min="1000" step="1000" value="10000">
+                </div>
+                <button class="calculate-btn">Calculate Returns</button>
+            </div>
+            <div class="result-box">
+                <h3>Estimated Returns</h3>
+                <div class="result-content">
+                    <p>Total Investment: <span id="totalInvestment">₹0</span></p>
+                    <p>Expected Returns: <span id="expectedReturns">₹0</span></p>
+                    <p>Maturity Amount: <span id="maturityAmount">₹0</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>We provide smart banking solutions and investment guidance to help you make informed financial decisions for a secure future.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="calculator.html">Calculator</a></li>
+                    <li><a href="index.html#services">Services</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                    <li><a href="index.html#about">About Us</a></li>
+                    <li><a href="index.html#privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Investment Plans</h3>
+                <ul>
+                    <li><a href="index.html#starter">Starter Plan</a></li>
+                    <li><a href="index.html#growth">Growth Plan</a></li>
+                    <li><a href="index.html#retirement">Retirement Plan</a></li>
+                    <li><a href="index.html#dream">Dream Plan</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <ul class="contact-info">
+                    <li><i class="fas fa-phone"></i> +1 234 567 8900</li>
+                    <li><i class="fas fa-envelope"></i> info@bestintheworld.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Finance Street, Business District</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p>&copy; 2024 Best in the World. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#terms">Terms of Service</a>
+                    <a href="#privacy">Privacy Policy</a>
+                    <a href="#disclaimer">Disclaimer</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="ai-assistant-sticky" id="aiAssistantBtn">
+        <span class="ai-glow-ring">
+            <img src="bank-logos/siri.png" alt="AI Assistant" class="ai-siri-img" />
+        </span>
+    </div>
+    <div class="ai-chat-sidebar" id="aiChatSidebar">
+        <div class="ai-chat-header">
+            <span>Banking AI Advisor</span>
+            <button class="ai-chat-close" id="aiChatCloseBtn">&times;</button>
+        </div>
+        <div class="ai-chat-messages" id="aiChatMessages">
+            <div class="ai-chat-message ai-chat-message-bot">
+                <div class="ai-chat-avatar"><img src="images/siri-logo.png" alt="AI" /></div>
+                <div class="ai-chat-bubble">Hello! I'm your AI banking advisor. How can I help you today?</div>
+            </div>
+        </div>
+        <form class="ai-chat-input-area" id="aiChatForm">
+            <input type="text" id="aiChatInput" placeholder="Type your message..." autocomplete="off" />
+            <button type="submit">Send</button>
+        </form>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
