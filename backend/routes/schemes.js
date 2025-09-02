@@ -4,33 +4,23 @@ const schemes = require("../data/schemes.json");
 
 // --- Helper Functions for Intelligent Parsing ---
 
-/**
- * Extracts a numerical interest rate from a string for sorting.
- * @param {string} rateStr - The interest rate string (e.g., "8.2% p.a.", "~33.66%")
- * @returns {number} - The parsed numerical rate, or 0 if not found.
- */
 function parseInterestRate(rateStr) {
     if (!rateStr) return 0;
-    // Find the last number in the string, which is usually the most relevant rate.
-    const matches = rateStr.match(/(\d+(\.\d+)?)/g);
+    // Handle range of rates (e.g., "3.50% - 7.75% p.a.")
+    const matches = rateStr.match(/\d+(\.\d+)?/g);
     if (matches) {
-        return parseFloat(matches[matches.length - 1]);
+        // If range exists, take the higher rate for comparison
+        return Math.max(...matches.map(rate => parseFloat(rate)));
     }
     return 0;
 }
 
-/**
- * Parses various tenure strings into a min/max year range.
- * @param {string} tenureStr - The tenure string (e.g., "5 Years", "7 Days to 10 Years", "115 Months")
- * @returns {{min: number, max: number}} - An object with min and max tenure in years.
- */
 function parseTenure(tenureStr) {
-    if (!tenureStr) return { min: 0, max: 100 }; // Default for unknown tenure
+    if (!tenureStr) return { min: 0, max: 100 };
 
     const str = tenureStr.toLowerCase();
-    let min = 0, max = 100; // Default max is high to include long-term plans
+    let min = 0, max = 100;
 
-    // Case 1: Range like "5-10 years" or "7 days to 10 years"
     if (str.includes('-') || str.includes('to')) {
         const parts = str.match(/(\d+)\s*(days|months|years)?\s*(to|-)\s*(\d+)\s*(months|years)/);
         if (parts) {
@@ -48,31 +38,57 @@ function parseTenure(tenureStr) {
         }
     }
 
-    // Case 2: Single value like "5 years", "115 months", "7+ years"
     const singleMatch = str.match(/(\d+(\.\d+)?)/);
     if (singleMatch) {
         const num = parseFloat(singleMatch[0]);
         if (str.includes('month')) {
             min = max = num / 12;
-        } else { // Assumes years
+        } else {
             min = num;
-            // If it's a minimum like "7+ years" or "lock-in until...", keep max high
             max = str.includes('+') || str.includes('until') ? 100 : num;
         }
         return { min, max };
     }
 
-    return { min: 0, max: 100 }; // Fallback
+    return { min: 0, max: 100 };
 }
 
-// --- API Routes ---
+// Calculate scheme score based on various factors
+function calculateSchemeScore(scheme, investmentAmount, investmentTenure) {
+    let score = 0;
 
-// Route 1: Get ALL schemes (remains the same)
-router.get("/", (req, res) => {
-    res.json(schemes);
-});
+    // Interest rate score (0-40 points)
+    const interestRate = parseInterestRate(scheme.interest_rate);
+    score += (interestRate / 40) * 40; // Normalize to 40 points max
 
-// Route 2: The new "Best Schemes" filter
+    // Investment amount match score (0-20 points)
+    const minInvestmentRatio = scheme.min_investment / investmentAmount;
+    if (minInvestmentRatio <= 1) {
+        score += 20 * (1 - minInvestmentRatio); // Better score for amounts well above minimum
+    }
+
+    // Tenure match score (0-20 points)
+    const tenureRange = parseTenure(scheme.tenure);
+    if (investmentTenure >= tenureRange.min && investmentTenure <= tenureRange.max) {
+        const tenureMatchRatio = 1 - Math.abs(((tenureRange.min + tenureRange.max) / 2) - investmentTenure) / investmentTenure;
+        score += 20 * tenureMatchRatio;
+    }
+
+    // Provider type score (0-10 points)
+    if (scheme.provider_type === 'Government') score += 10;
+    else if (scheme.provider_type === 'Public Sector Bank') score += 8;
+    else if (scheme.provider_type === 'Private Sector Bank') score += 6;
+    else score += 5;
+
+    // Investment frequency score (0-10 points)
+    if (scheme.investment_frequency === 'Lump Sum') score += 10;
+    else if (scheme.investment_frequency === 'Monthly (SIP)') score += 8;
+    else score += 5;
+
+    return score;
+}
+
+// Route for filtered and scored schemes
 router.get("/filter", (req, res) => {
     const { minInvestment, tenure } = req.query;
 
@@ -80,36 +96,53 @@ router.get("/filter", (req, res) => {
         return res.status(400).json({ error: "Investment amount and tenure are required." });
     }
 
-    const investmentAmount = parseInt(minInvestment);
-    const investmentTenure = parseInt(tenure);
+    const investmentAmount = parseFloat(minInvestment);
+    const investmentTenure = parseFloat(tenure);
 
-    // 1. Filter schemes based on user's criteria
-    const eligibleSchemes = schemes.filter(scheme => {
-        // Amount check
-        const isAmountOk = investmentAmount >= scheme.min_investment &&
-                         (scheme.max_investment === null || investmentAmount <= scheme.max_investment);
-        if (!isAmountOk) return false;
+    // Filter and score schemes
+    const eligibleSchemes = schemes
+        .filter(scheme => {
+            const isAmountOk = investmentAmount >= scheme.min_investment &&
+                             (scheme.max_investment === null || investmentAmount <= scheme.max_investment);
+            const tenureRange = parseTenure(scheme.tenure);
+            const isTenureOk = investmentTenure >= tenureRange.min && investmentTenure <= tenureRange.max;
+            return isAmountOk && isTenureOk;
+        })
+        .map(scheme => ({
+            ...scheme,
+            score: calculateSchemeScore(scheme, investmentAmount, investmentTenure)
+        }));
 
-        // Tenure check
-        const schemeTenureRange = parseTenure(scheme.tenure);
-        const isTenureOk = investmentTenure >= schemeTenureRange.min && investmentTenure <= schemeTenureRange.max;
-        
-        return isAmountOk && isTenureOk;
-    });
-
-    // 2. Categorize and sort the filtered schemes
+    // Separate and sort by risk level and score
     const lowRiskSchemes = eligibleSchemes
         .filter(s => s.risk_level.toLowerCase().includes('low'))
-        .sort((a, b) => parseInterestRate(b.interest_rate) - parseInterestRate(a.interest_rate));
+        .sort((a, b) => b.score - a.score);
 
     const highRiskSchemes = eligibleSchemes
         .filter(s => !s.risk_level.toLowerCase().includes('low'))
-        .sort((a, b) => parseInterestRate(b.interest_rate) - parseInterestRate(a.interest_rate));
+        .sort((a, b) => b.score - a.score);
 
-    // 3. Return the structured result
+    // Randomly shuffle top schemes if they have similar scores
+    function shuffleTopSchemes(schemes) {
+        if (schemes.length <= 1) return schemes;
+        
+        const topScore = schemes[0].score;
+        const similarScores = schemes.filter(s => Math.abs(s.score - topScore) <= 5);
+        const remainingSchemes = schemes.filter(s => Math.abs(s.score - topScore) > 5);
+        
+        // Fisher-Yates shuffle for similar scored schemes
+        for (let i = similarScores.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [similarScores[i], similarScores[j]] = [similarScores[j], similarScores[i]];
+        }
+        
+        return [...similarScores, ...remainingSchemes];
+    }
+
+    // Return shuffled top schemes
     res.json({
-        lowRisk: lowRiskSchemes,
-        highRisk: highRiskSchemes
+        lowRisk: shuffleTopSchemes(lowRiskSchemes),
+        highRisk: shuffleTopSchemes(highRiskSchemes)
     });
 });
 

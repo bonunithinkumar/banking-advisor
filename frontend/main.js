@@ -30,14 +30,21 @@ aiChatCloseBtn.addEventListener('click', () => {
  * @returns {string} - The HTML string for the card.
  */
 function createSchemeCard(scheme) {
-    // FIX: Handle cases where min_investment can be null (e.g., for loans)
     const minInvestmentDisplay = scheme.min_investment 
         ? `₹${scheme.min_investment.toLocaleString()}` 
         : 'N/A';
 
+    // Add score indicator (as a percentage)
+    const scorePercentage = Math.round((scheme.score / 100) * 100);
+    const scoreClass = scorePercentage >= 80 ? 'score-high' : 
+                      scorePercentage >= 60 ? 'score-medium' : 'score-low';
+
     return `
         <div class="scheme-card">
-            <h3>${scheme.plan_name}</h3>
+            <div class="scheme-header">
+                <h3>${scheme.plan_name}</h3>
+                <div class="match-score ${scoreClass}">${scorePercentage}% Match</div>
+            </div>
             <div class="scheme-details">
                 <div class="scheme-detail">
                     <span class="detail-label">Provider:</span>
@@ -63,6 +70,41 @@ function createSchemeCard(scheme) {
     `;
 }
 
+// Add these styles to schemeCardStyles
+const additionalStyles = `
+.scheme-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.match-score {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 12px;
+}
+
+.score-high {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.score-medium {
+    background-color: #fff3e0;
+    color: #ef6c00;
+}
+
+.score-low {
+    background-color: #fbe9e7;
+    color: #c62828;
+}
+`;
+
+// Add the additional styles to the existing schemeCardStyles
+document.head.insertAdjacentHTML('beforeend', `<style>${additionalStyles}</style>`);
+
 /**
  * Renders the categorized schemes data into the DOM.
  * @param {{lowRisk: Array, highRisk: Array}} schemesData - The object from the backend.
@@ -82,7 +124,9 @@ function displayFilteredSchemes(schemesData) {
         return;
     }
 
-    const { lowRisk, highRisk } = schemesData;
+    // Limit to 10 cards per category
+    const lowRisk = schemesData.lowRisk.slice(0, 10);
+    const highRisk = schemesData.highRisk.slice(0, 10);
 
     if (lowRisk.length === 0 && highRisk.length === 0) {
         schemesSection.innerHTML = `
@@ -134,7 +178,26 @@ async function findAndDisplaySchemes(amount, tenure) {
     }
 
     try {
-        const queryParams = new URLSearchParams({ minInvestment: amount, tenure: tenure });
+        // Parse the values to numbers and validate
+        const numAmount = parseFloat(amount);
+        const numTenure = parseFloat(tenure);
+        
+        if (isNaN(numAmount) || isNaN(numTenure)) {
+            alert('Please enter valid numbers for amount and tenure.');
+            return;
+        }
+
+        const queryParams = new URLSearchParams({
+            minInvestment: numAmount,
+            tenure: numTenure
+        });
+        
+        // Clear any previous results
+        const existingSection = document.querySelector('.filtered-schemes');
+        if (existingSection) {
+            existingSection.innerHTML = '<div class="loading">Fetching best schemes...</div>';
+        }
+
         const response = await fetch(`${API_BASE_URL}/schemes/filter?${queryParams}`);
         
         if (!response.ok) {
