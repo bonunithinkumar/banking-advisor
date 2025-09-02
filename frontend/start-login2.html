@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Signup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #1e1e2d;
+        }
+        .container {
+            display: flex;
+            padding: 20px 20px;
+            max-width: 900px;
+            background: #2a2a3b;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+        .left{
+          display: flex;
+          flex: 1;
+        }
+        .left-card{
+            height: 100%;
+            width: 100%;
+            border-radius: 10px;
+            background: url('colleges-img/iiitdrndblock.jpeg') no-repeat center center/cover;
+            position: relative;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .left-header{
+          height: 30px;
+          left: 0;
+          top: 0;
+          right: 0;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+        }
+        .left-text{
+          font-weight: bold;
+          font-size: 16px;
+          color: black;
+        }
+        .back-to-web{
+          border: none;
+          background-color: grey 10%;
+          padding: 5px 9px;
+          font-size: 11px;
+          border-radius: 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+        }
+        .back-to-web img{
+          height: 10px;
+          mix-blend-mode: multiply;
+          padding-left: 5px;
+        }
+        .left-footer{
+          margin-top: 150%;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .right {
+            flex: 1;
+            padding: 40px;
+            background: #2a2a3b;
+            color: white;
+        }
+        .right h2 {
+            margin-bottom: 15px;
+        }
+        .right p {
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+            background: #3a3a4d;
+            color: white;
+        }
+        .checkbox {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .checkbox input {
+            width: auto;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+        .checkbox span{
+          margin-top: -3px;
+          font-size: 12px;
+        }
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background: #6a5acd;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: #836fff;
+        }
+        .divider {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #aaa; /* Light gray text */
+          font-size: 14px;
+          margin: 20px 0;
+        }
+
+        .divider::before,
+        .divider::after {
+          content: "";
+          flex: 1;
+          height: 1px;
+          background: #444; /* Line color */
+          margin: 0 10px;
+        }
+
+        .social-login {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .social-btn {
+            width: 48%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .social-btn img {
+            width: 20px;
+            margin-right: 10px;
+        }
+        .toggle-form {
+            margin-top: 15px;
+            text-align: center;
+            color: #bbb;
+            cursor: pointer;
+        }
+        .toggle-form:hover {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+          <div class="left-card">
+            <div class="left-header">
+              <div class="left-text">Business</div>
+              <button class="back-to-web" onclick="window.location.href='index.html'">Back to website 
+                <img src="logos/right-arrow.png">
+              </button>
+            </div>
+            <div class="left-footer">Capturing Moments,<br>Creating Memories</div>
+          </div>
+        </div>
+        <div class="right">
+            <h2 id="formTitle">Create an account</h2>
+            <p id="toggleText">Already have an account? <span class="toggle-form" onclick="toggleForm()">Log in</span></p>
+            <form id="authForm" onsubmit="handleSubmit(event)">
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="password" id="password" placeholder="Enter your password" required>
+                <div class="checkbox">
+                    <input type="checkbox" required> <span>I agree to the Terms & Conditions</span>
+                </div>
+                <button type="submit" class="btn" id="submitBtn">Create Account</button>
+            </form>
+            <div class="divider">
+              <span>Or register with</span>
+            </div>
+            <div class="social-login">
+                <button class="social-btn"><img src="logos/google.png">Google</button>
+                <button class="social-btn"><img src="logos/apple-logo.png">Apple</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script>
+        let isLoginForm = false;
+
+        function toggleForm() {
+            isLoginForm = !isLoginForm;
+            const formTitle = document.getElementById('formTitle');
+            const toggleText = document.getElementById('toggleText');
+            const submitBtn = document.getElementById('submitBtn');
+            const usernameInput = document.getElementById('username');
+
+            if (isLoginForm) {
+                formTitle.textContent = 'Login';
+                toggleText.innerHTML = 'Don\'t have an account? <span class="toggle-form" onclick="toggleForm()">Sign up</span>';
+                submitBtn.textContent = 'Login';
+                usernameInput.style.display = 'none';
+            } else {
+                formTitle.textContent = 'Create an account';
+                toggleText.innerHTML = 'Already have an account? <span class="toggle-form" onclick="toggleForm()">Log in</span>';
+                submitBtn.textContent = 'Create Account';
+                usernameInput.style.display = 'block';
+            }
+        }
+
+        async function handleSubmit(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const username = document.getElementById('username').value;
+
+            try {
+                if (isLoginForm) {
+                    const response = await login(email, password);
+                    window.location.href = 'index.html';
+                } else {
+                    const response = await register(username, email, password);
+                    window.location.href = 'index.html';
+                }
+            } catch (error) {
+                alert(error.message);
+            }
+        }
+    </script>
+</body>
+</html>

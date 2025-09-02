@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banking Advisor</title>
+    
+    <link rel="stylesheet" href="styles/general.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/hero.css">
+    <link rel="stylesheet" href="styles/grids.css">
+    <link rel="stylesheet" href="styles/footer.css">
+    <link rel="stylesheet" href="styles/ai-chat-sidebar.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">LOGO</div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#Calculator">Calculator</a>
+            <a href="#services">Services</a>
+            <a href="#ai-assistant" class="ai-assistant">
+                <span class="ai-glow-ring">
+                    <img src="bank-logos/siri.png" alt="AI Assistant" class="ai-siri-img" />
+                </span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Smart Banking Solutions</h1>
+            <p>Discover the best fixed deposits and monthly income schemes for your investments</p>
+            <div class="hero-inputs">
+                <div class="input-group">
+                    <input type="number" id="heroAmount" placeholder="Investment Amount" min="1000" step="1000">
+                    <span class="input-icon">₹</span>
+                </div>
+                <div class="input-group">
+                    <input type="number" id="heroTenure" placeholder="Investment Tenure" min="1" max="30">
+                    <span class="input-icon">Years</span>
+                </div>
+            </div>
+            <button class="predict-btn">Find Best Schemes</button>
+        </div>
+    </div>
+
+    <section class="grid-gallery">
+        <div class="gallery-container">
+            <div class="gallery-item item1">
+                <img src="images/financial-planning.jpg" alt="Financial Planning">
+                <div class="item-content">
+                    <h3>Financial Planning</h3>
+                    <p>Expert guidance for your financial future</p>
+                </div>
+            </div>
+            <div class="gallery-item item2">
+                <img src="images/smart-investment.jpg" alt="Investment">
+                <div class="item-content">
+                    <h3>Smart Investment</h3>
+                    <p>Grow your wealth wisely</p>
+                </div>
+            </div>
+            <div class="gallery-item item3">
+                <img src="images/real-estate.jpg" alt="Real Estate">
+                <div class="item-content">
+                    <h3>Real Estate</h3>
+                    <p>Property investment solutions</p>
+                </div>
+            </div>
+            <div class="gallery-item item4">
+                <img src="images/retirement.jpg" alt="Retirement">
+                <div class="item-content">
+                    <h3>Retirement Plans</h3>
+                    <p>Secure your golden years</p>
+                </div>
+            </div>
+            <div class="gallery-item item5">
+                <img src="images/education.jpg" alt="Education">
+                <div class="item-content">
+                    <h3>Education Funds</h3>
+                    <p>Invest in knowledge</p>
+                </div>
+            </div>
+            <div class="gallery-item item6">
+                    <img src="images/business.jpg" alt="Business">
+                <div class="item-content">
+                    <h3>Business Growth</h3>
+                    <p>Scale your enterprise</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="investment-plans">
+        <div class="container">
+            <h2>Our plans</h2>
+            <div class="plans-grid">
+                <div class="plan-card">
+                    <div class="plan-icon">
+                        <img src="logos/rocket.png" alt="Starter Plan">
+                    </div>
+                    <h3>Starter Plan</h3>
+                    <p class="plan-subtitle">₹1,000 minimum</p>
+                </div>
+                
+                <div class="plan-card">
+                    <div class="plan-icon">
+                        <img src="/logos/growth.png" alt="Growth Plan">
+                    </div>
+                    <h3>Growth Plan</h3>
+                    <p class="plan-subtitle">For high growth</p>
+                </div>
+                
+                <div class="plan-card">
+                    <div class="plan-icon">
+                        <img src="/logos/cottage.png" alt="Retirement Plan">
+                    </div>
+                    <h3>Retirement Plan</h3>
+                    <p class="plan-subtitle">Tax-advantaged</p>
+                </div>
+                
+                <div class="plan-card">
+                    <div class="plan-icon">
+                        <img src="/logos/cap.png" alt="Dream Plan">
+                    </div>
+                    <h3>Dream Plan</h3>
+                    <p class="plan-subtitle">For life's big goals</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="monthly-schemes">
+        <div class="container">
+            <h2>Monthly Income Schemes</h2>
+            <p class="section-subtitle">Secure monthly income options for your financial stability</p>
+            
+            <div class="monthly-schemes-grid">
+                <div class="monthly-card">
+                    <div class="bank-logo">
+                        <img src="bank-logos/ippb.png" alt="Post Office Logo">
+                    </div>
+                    <img src="/logos/bank-building.png" alt="Post Office MIS" class="scheme-img">
+                    <h3>Post Office Monthly Scheme</h3>
+                    <div class="key-features">
+                        <div class="feature">
+                            <span class="label">Returns</span>
+                            <span class="value">7.1% per year</span>
+                        </div>
+                        <div class="feature">
+                            <span class="label">Min. Investment</span>
+                            <span class="value">₹1,000</span>
+                        </div>
+                        <div class="feature">
+                            <span class="label">Term</span>
+                            <span class="value">5 years</span>
+                        </div>
+                    </div>
+                    <p class="scheme-info">Get monthly payments directly to your account. Safe government-backed investment.</p>
+                </div>
+
+                <div class="monthly-card">
+                    <div class="bank-logo">
+                        <img src="bank-logos/sbi.jpg" alt="SBI Logo">
+                    </div>
+                    <img src="/logos/money-box.png" alt="SBI Monthly Income" class="scheme-img">
+                    <h3>SBI Monthly Income Account</h3>
+                    <div class="key-features">
+                        <div class="feature">
+                            <span class="label">Returns</span>
+                            <span class="value">6.8% per year</span>
+                        </div>
+                        <div class="feature">
+                            <span class="label">Min. Investment</span>
+                            <span class="value">₹10,000</span>
+                        </div>
+                        <div class="feature">
+                            <span class="label">Term</span>
+                            <span class="value">3-5 years</span>
+                        </div>
+                    </div>
+                    <p class="scheme-info">Regular monthly income with additional benefits like loan facility.</p>
+                </div>
+
+                <div class="monthly-card">
+                    <div class="bank-logo">
+                        <img src="bank-logos/hdfc.jpg" alt="HDFC Logo">
+                    </div>
+                    <img src="/logos/money-circulation.png" alt="HDFC Monthly Income" class="scheme-img">
+                    <h3>HDFC Regular Income Plan</h3>
+                    <div class="key-features">
+                        <div class="feature">
+                            <span class="label">Returns</span>
+                            <span class="value">7.5% per year</span>
+                        </div>
+                        <div class="feature">
+                            <span class="label">Min. Investment</span>
+                            <span class="value">₹25,000</span>
+                        </div>
+                        <div class="feature">
+                            <span class="label">Term</span>
+                            <span class="value">1-10 years</span>
+                        </div>
+                    </div>
+                    <p class="scheme-info">Flexible terms with option to receive income monthly, quarterly, or yearly.</p>
+                </div>
+
+                <div class="monthly-card">
+                    <div class="bank-logo">
+                        <img src="bank-logos/axis.png" alt="Axis Bank Logo">
+                    </div>
+                    <img src="/logos/refund.png" alt="Senior Monthly Plan" class="scheme-img">
+                    <h3>Senior Citizens Savings</h3>
+                    <div class="key-features">
+                        <div class="feature">
+                            <span class="label">Returns</span>
+                            <span class="value">8.2% per year</span>
+                        </div>
+                        <div class="feature">
+                            <span class="label">Min. Investment</span>
+                            <span class="value">₹1,000</span>
+                        </div>
+                        <div class="feature">
+                            <span class="label">Age</span>
+                            <span class="value">60+ years</span>
+                        </div>
+                    </div>
+                    <p class="scheme-info">Higher returns for senior citizens with guaranteed monthly income.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="finance-advisor">
+        <div class="container">
+            <h2>Financial Planning Calculator</h2>
+            <div class="calculator-form">
+                <div class="form-group">
+                    <label for="tenure">Investment Tenure (Years)</label>
+                    <input type="number" id="tenure" min="1" max="30" value="5">
+                </div>
+                <div class="form-group">
+                    <label for="timePeriod">Time Period</label>
+                    <select id="timePeriod">
+                        <option value="monthly">Monthly</option>
+                        <option value="quarterly">Quarterly</option>
+                        <option value="yearly">Yearly</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="amount">Investment Amount</label>
+                    <input type="number" id="amount" min="1000" step="1000" value="10000">
+                </div>
+                <button class="calculate-btn">Calculate Returns</button>
+            </div>
+            <div class="result-box">
+                <h3>Estimated Returns</h3>
+                <div class="result-content">
+                    <p>Total Investment: <span id="totalInvestment">₹0</span></p>
+                    <p>Expected Returns: <span id="expectedReturns">₹0</span></p>
+                    <p>Maturity Amount: <span id="maturityAmount">₹0</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>We provide smart banking solutions and investment guidance to help you make informed financial decisions for a secure future.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#Calculator">Calculator</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Investment Plans</h3>
+                <ul>
+                    <li><a href="#starter">Starter Plan</a></li>
+                    <li><a href="#growth">Growth Plan</a></li>
+                    <li><a href="#retirement">Retirement Plan</a></li>
+                    <li><a href="#dream">Dream Plan</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <ul class="contact-info">
+                    <li><i class="fas fa-phone"></i> +1 234 567 8900</li>
+                    <li><i class="fas fa-envelope"></i> info@bestintheworld.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Finance Street, Business District</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p>&copy; 2024 Best in the World. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#terms">Terms of Service</a>
+                    <a href="#privacy">Privacy Policy</a>
+                    <a href="#disclaimer">Disclaimer</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="ai-assistant-sticky" id="aiAssistantBtn">
+        <span class="ai-glow-ring">
+            <img src="bank-logos/siri.png" alt="AI Assistant" class="ai-siri-img" />
+        </span>
+    </div>
+    <div class="ai-chat-sidebar" id="aiChatSidebar">
+        <div class="ai-chat-header">
+            <span>Banking AI Advisor</span>
+            <button class="ai-chat-close" id="aiChatCloseBtn">&times;</button>
+        </div>
+        <div class="ai-chat-messages" id="aiChatMessages">
+            <div class="ai-chat-message ai-chat-message-bot">
+                <div class="ai-chat-avatar"><img src="images/siri-logo.png" alt="AI" /></div>
+                <div class="ai-chat-bubble">Hello! I'm your AI banking advisor. How can I help you today?</div>
+            </div>
+        </div>
+        <form class="ai-chat-input-area" id="aiChatForm">
+            <input type="text" id="aiChatInput" placeholder="Type your message..." autocomplete="off" />
+            <button type="submit">Send</button>
+        </form>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
