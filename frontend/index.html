@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Banking Advisor</title>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="styles/general.css">
     <link rel="stylesheet" href="styles/header.css">
     <link rel="stylesheet" href="styles/hero.css">
@@ -13,14 +17,30 @@
     <link rel="stylesheet" href="styles/ai-chat-sidebar.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+      body { font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+      .grid-gallery, .investment-plans, .monthly-schemes, .filtered-schemes { background: linear-gradient(135deg, #f8fbff, #f6f7ff); }
+      .plan-card, .monthly-card { border-radius: 18px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    </style>
 </head>
 <body>
     <nav>
-        <div class="logo">LOGO</div>
+        <div class="logo">
+            <div class="logo-icon">A</div>
+            ADVISOR
+        </div>
         <div class="nav-links">
             <a href="#home">Home</a>
             <a href="calculator.html">Calculator</a>
             <a href="#services">Services</a>
+            <a href="#about">About</a>
+        </div>
+        <div class="nav-actions">
+            <a href="#" class="sign-in-btn">Sign In</a>
+            <div class="social-icons">
+                <i class="fab fa-github social-icon"></i>
+                <i class="fab fa-discord social-icon"></i>
+            </div>
             <a href="#ai-assistant" class="ai-assistant">
                 <span class="ai-glow-ring">
                     <img src="bank-logos/siri.png" alt="AI Assistant" class="ai-siri-img" />
@@ -108,7 +128,7 @@
                 
                 <div class="plan-card">
                     <div class="plan-icon">
-                        <img src="/logos/growth.png" alt="Growth Plan">
+                        <img src="logos/growth.png" alt="Growth Plan">
                     </div>
                     <h3>Growth Plan</h3>
                     <p class="plan-subtitle">For high growth</p>
@@ -116,7 +136,7 @@
                 
                 <div class="plan-card">
                     <div class="plan-icon">
-                        <img src="/logos/cottage.png" alt="Retirement Plan">
+                        <img src="logos/cottage.png" alt="Retirement Plan">
                     </div>
                     <h3>Retirement Plan</h3>
                     <p class="plan-subtitle">Tax-advantaged</p>
@@ -124,7 +144,7 @@
                 
                 <div class="plan-card">
                     <div class="plan-icon">
-                        <img src="/logos/cap.png" alt="Dream Plan">
+                        <img src="logos/cap.png" alt="Dream Plan">
                     </div>
                     <h3>Dream Plan</h3>
                     <p class="plan-subtitle">For life's big goals</p>
@@ -234,38 +254,7 @@
         </div>
     </section>
 
-    <section class="finance-advisor">
-        <div class="container">
-            <h2>Financial Planning Calculator</h2>
-            <div class="calculator-form">
-                <div class="form-group">
-                    <label for="tenure">Investment Tenure (Years)</label>
-                    <input type="number" id="tenure" min="1" max="30" value="5">
-                </div>
-                <div class="form-group">
-                    <label for="timePeriod">Time Period</label>
-                    <select id="timePeriod">
-                        <option value="monthly">Monthly</option>
-                        <option value="quarterly">Quarterly</option>
-                        <option value="yearly">Yearly</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="amount">Investment Amount</label>
-                    <input type="number" id="amount" min="1000" step="1000" value="10000">
-                </div>
-                <button class="calculate-btn">Calculate Returns</button>
-            </div>
-            <div class="result-box">
-                <h3>Estimated Returns</h3>
-                <div class="result-content">
-                    <p>Total Investment: <span id="totalInvestment">₹0</span></p>
-                    <p>Expected Returns: <span id="expectedReturns">₹0</span></p>
-                    <p>Maturity Amount: <span id="maturityAmount">₹0</span></p>
-                </div>
-            </div>
-        </div>
-    </section>
+    
 
     <footer class="footer">
         <div class="footer-container">
@@ -323,12 +312,13 @@
             </div>
         </div>
     </footer>
-
-    <div class="ai-assistant-sticky" id="aiAssistantBtn">
+<!--<div class="ai-assistant-sticky" id="aiAssistantBtn">
         <span class="ai-glow-ring">
             <img src="bank-logos/siri.png" alt="AI Assistant" class="ai-siri-img" />
         </span>
-    </div>
+    </div>-->
+    
+
     <div class="ai-chat-sidebar" id="aiChatSidebar">
         <div class="ai-chat-header">
             <span>Banking AI Advisor</span>
@@ -336,7 +326,7 @@
         </div>
         <div class="ai-chat-messages" id="aiChatMessages">
             <div class="ai-chat-message ai-chat-message-bot">
-                <div class="ai-chat-avatar"><img src="images/siri-logo.png" alt="AI" /></div>
+                <div class="ai-chat-avatar"><img src="logos/main-logo.webp" alt="AI" /></div>
                 <div class="ai-chat-bubble">Hello! I'm your AI banking advisor. How can I help you today?</div>
             </div>
         </div>

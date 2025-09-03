@@ -1,6 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const schemes = require("../data/schemes.json");
+let bankMeta = {};
+try {
+    bankMeta = require("../data/banks.json");
+} catch (e) {
+    bankMeta = {};
+}
 
 // --- Helper Functions for Intelligent Parsing ---
 
@@ -53,44 +59,76 @@ function parseTenure(tenureStr) {
     return { min: 0, max: 100 };
 }
 
+// Pre-normalize dataset for faster filtering and consistent comparisons
+const normalizedSchemes = schemes.map((s) => {
+    const interestRateMax = parseInterestRate(s.interest_rate);
+    const tenureRangeYears = parseTenure(s.tenure);
+    const minInvestment = Number(s.min_investment || 0);
+    const maxInvestment = s.max_investment === null || typeof s.max_investment === 'undefined'
+        ? null
+        : Number(s.max_investment);
+
+    return {
+        ...s,
+        _interestRateMax: isNaN(interestRateMax) ? 0 : interestRateMax,
+        _tenureRangeYears: tenureRangeYears,
+        _minInvestment: isNaN(minInvestment) ? 0 : minInvestment,
+        _maxInvestment: maxInvestment,
+        _riskIsLow: (s.risk_level || '').toLowerCase().includes('low')
+    };
+});
+
 // Calculate scheme score based on various factors
-function calculateSchemeScore(scheme, investmentAmount, investmentTenure) {
+function calculateSchemeScore(scheme, investmentAmount, investmentTenure, preferences = {}) {
     let score = 0;
 
-    // Interest rate score (0-40 points)
-    const interestRate = parseInterestRate(scheme.interest_rate);
-    score += (interestRate / 40) * 40; // Normalize to 40 points max
+    // Interest rate score (0-45 points)
+    const interestRate = scheme._interestRateMax || 0;
+    // Cap at 15% for normalization; 15% => full 45 points
+    const interestNormalized = Math.min(interestRate, 15) / 15;
+    score += interestNormalized * 45;
 
     // Investment amount match score (0-20 points)
-    const minInvestmentRatio = scheme.min_investment / investmentAmount;
-    if (minInvestmentRatio <= 1) {
-        score += 20 * (1 - minInvestmentRatio); // Better score for amounts well above minimum
+    const minInvestment = scheme._minInvestment || 0;
+    if (investmentAmount >= minInvestment) {
+        // The more headroom above minimum, the better, up to 5x the minimum
+        const headroom = Math.min(investmentAmount / Math.max(minInvestment, 1), 5) - 1; // 0..4
+        const ratio = Math.max(0, Math.min(headroom / 4, 1));
+        score += ratio * 20;
     }
 
     // Tenure match score (0-20 points)
-    const tenureRange = parseTenure(scheme.tenure);
-    if (investmentTenure >= tenureRange.min && investmentTenure <= tenureRange.max) {
-        const tenureMatchRatio = 1 - Math.abs(((tenureRange.min + tenureRange.max) / 2) - investmentTenure) / investmentTenure;
-        score += 20 * tenureMatchRatio;
+    const { min: minY, max: maxY } = scheme._tenureRangeYears || { min: 0, max: 100 };
+    if (investmentTenure >= minY && investmentTenure <= maxY) {
+        // Closer to center of scheme range yields higher score
+        const center = (minY + maxY) / 2;
+        const spread = Math.max(maxY - minY, 0.01);
+        const distance = Math.abs(investmentTenure - center);
+        const match = Math.max(0, 1 - (distance / (spread / 2)));
+        score += match * 20;
     }
 
-    // Provider type score (0-10 points)
-    if (scheme.provider_type === 'Government') score += 10;
-    else if (scheme.provider_type === 'Public Sector Bank') score += 8;
-    else if (scheme.provider_type === 'Private Sector Bank') score += 6;
+    // Provider trust factor (0-10 points)
+    const providerType = scheme.provider_type || '';
+    if (providerType === 'Government') score += 10;
+    else if (providerType === 'Public Sector Bank') score += 8;
+    else if (providerType === 'Private Sector Bank') score += 6;
     else score += 5;
 
-    // Investment frequency score (0-10 points)
-    if (scheme.investment_frequency === 'Lump Sum') score += 10;
-    else if (scheme.investment_frequency === 'Monthly (SIP)') score += 8;
-    else score += 5;
+    // Preference nudges (0-5 points)
+    if (preferences.preferredPayout) {
+        const desired = String(preferences.preferredPayout).toLowerCase();
+        const payout = String(scheme.payout_frequency || '').toLowerCase();
+        if (desired && payout.includes(desired)) score += 5;
+    }
 
-    return score;
+    // Clamp to 0..100
+    return Math.max(0, Math.min(100, Math.round(score)));
 }
 
 // Route for filtered and scored schemes
 router.get("/filter", (req, res) => {
-    const { minInvestment, tenure } = req.query;
+    const { minInvestment, tenure, preferredPayout } = req.query;
 
     if (!minInvestment || !tenure) {
         return res.status(400).json({ error: "Investment amount and tenure are required." });
@@ -100,26 +138,34 @@ router.get("/filter", (req, res) => {
     const investmentTenure = parseFloat(tenure);
 
     // Filter and score schemes
-    const eligibleSchemes = schemes
-        .filter(scheme => {
-            const isAmountOk = investmentAmount >= scheme.min_investment &&
-                             (scheme.max_investment === null || investmentAmount <= scheme.max_investment);
-            const tenureRange = parseTenure(scheme.tenure);
-            const isTenureOk = investmentTenure >= tenureRange.min && investmentTenure <= tenureRange.max;
-            return isAmountOk && isTenureOk;
+    const prefs = { preferredPayout };
+
+    const eligibleSchemes = normalizedSchemes
+        .filter((scheme) => {
+            const amountOk = investmentAmount >= (scheme._minInvestment || 0) &&
+                (scheme._maxInvestment === null || typeof scheme._maxInvestment === 'undefined' || investmentAmount <= scheme._maxInvestment);
+            const { min: minY, max: maxY } = scheme._tenureRangeYears || { min: 0, max: 100 };
+            const tenureOk = investmentTenure >= minY && investmentTenure <= maxY;
+            return amountOk && tenureOk;
         })
-        .map(scheme => ({
-            ...scheme,
-            score: calculateSchemeScore(scheme, investmentAmount, investmentTenure)
-        }));
+        .map((scheme) => {
+            const meta = bankMeta[scheme.provider_name] || {};
+            return {
+                ...scheme,
+                provider_logo: meta.logo || null,
+                provider_banner: meta.banner || null,
+                official_url: meta.official_url || null,
+                score: calculateSchemeScore(scheme, investmentAmount, investmentTenure, prefs)
+            };
+        });
 
     // Separate and sort by risk level and score
     const lowRiskSchemes = eligibleSchemes
-        .filter(s => s.risk_level.toLowerCase().includes('low'))
+        .filter((s) => s._riskIsLow)
         .sort((a, b) => b.score - a.score);
 
     const highRiskSchemes = eligibleSchemes
-        .filter(s => !s.risk_level.toLowerCase().includes('low'))
+        .filter((s) => !s._riskIsLow)
         .sort((a, b) => b.score - a.score);
 
     // Randomly shuffle top schemes if they have similar scores
@@ -143,6 +189,24 @@ router.get("/filter", (req, res) => {
     res.json({
         lowRisk: shuffleTopSchemes(lowRiskSchemes),
         highRisk: shuffleTopSchemes(highRiskSchemes)
+    });
+});
+
+// Get a single scheme by plan_id, enriched with bank metadata
+router.get('/:id', (req, res) => {
+    const { id } = req.params;
+    if (!id) return res.status(400).json({ error: 'Missing scheme id' });
+
+    // Find in normalized to reuse parsed helpers
+    const found = normalizedSchemes.find(s => String(s.plan_id) === String(id));
+    if (!found) return res.status(404).json({ error: 'Scheme not found' });
+
+    const meta = bankMeta[found.provider_name] || {};
+    return res.json({
+        ...found,
+        provider_logo: meta.logo || null,
+        provider_banner: meta.banner || null,
+        official_url: meta.official_url || null
     });
 });
 

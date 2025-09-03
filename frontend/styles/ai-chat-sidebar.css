@@ -67,7 +67,12 @@
     border-radius: 50%;
     box-shadow: 0 2px 8px rgba(60,60,100,0.10);
 }
-
+.ai-chat-avatar img {
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(60,60,100,0.10);
+}
 .ai-chat-bubble {
     background: #fff;
     border-radius: 16px 16px 16px 4px;
@@ -92,6 +97,7 @@
 .ai-chat-message-user .ai-chat-avatar {
     display: none;
 }
+
 
 .ai-chat-input-area {
     display: flex;

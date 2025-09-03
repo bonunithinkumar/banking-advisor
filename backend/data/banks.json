@@ -1,0 +1,32 @@
+{
+  "State Bank of India (SBI)": {
+    "logo": "/bank-logos/sbi.jpg",
+    "banner": "/images/Hero-bg.avif",
+    "official_url": "https://sbi.co.in/"
+  },
+  "HDFC Bank": {
+    "logo": "/bank-logos/hdfc.jpg",
+    "banner": "/images/Hero-bg.avif",
+    "official_url": "https://www.hdfcbank.com/"
+  },
+  "Axis Bank": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/images/Hero-bg.avif",
+    "official_url": "https://www.axisbank.com/"
+  },
+  "India Post": {
+    "logo": "/bank-logos/ippb.png",
+    "banner": "/images/Hero-bg.avif",
+    "official_url": "https://www.indiapost.gov.in/"
+  },
+  "Kotak Mahindra Bank": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/images/Hero-bg.avif",
+    "official_url": "https://www.kotak.com/"
+  },
+  "ICICI Bank": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/images/Hero-bg.avif",
+    "official_url": "https://www.icicibank.com/"
+  }
+}

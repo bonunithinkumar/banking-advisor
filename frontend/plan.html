@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Details</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/general.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/footer.css">
+    <link rel="stylesheet" href="styles/ai-chat-sidebar.css">
+    <style>
+        body { font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+        .banner {
+            width: 100%;
+            height: 240px;
+            background: linear-gradient(135deg, #f8fbff, #f6f7ff);
+            position: relative;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+        }
+        .banner img { width: 100%; height: 100%; object-fit: cover; opacity: 0.55; filter: blur(1px); }
+        .banner .overlay { position: absolute; inset: 0; background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.5), rgba(255,255,255,0)); }
+        .banner .title { position: absolute; bottom: 24px; left: 24px; color: #1b1f26; font-size: 1.8rem; font-weight: 700; }
+        .plan-container { max-width: 1100px; margin: -60px auto 40px; padding: 0 20px; }
+        .plan-card { background: rgba(255,255,255,0.65); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); padding: 24px; }
+        .meta { display: flex; gap: 16px; align-items: center; margin-bottom: 16px; }
+        .meta img { width: 44px; height: 44px; border-radius: 10px; object-fit: cover; }
+        .meta .provider { font-weight: 600; color: #1f2530; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 10px; }
+        .grid .info { background: rgba(255,255,255,0.6); border: 1px solid #e8edf4; border-radius: 14px; padding: 14px; }
+        .info .label { color: #6b768a; font-size: 0.85rem; }
+        .info .value { color: #1f2530; font-weight: 600; margin-top: 6px; }
+        .section { margin-top: 22px; }
+        .section h3 { margin: 0 0 10px; font-size: 1.1rem; color: #1f2530; }
+        .badge { display: inline-block; padding: 6px 12px; border-radius: 999px; font-size: 0.8rem; font-weight: 600; }
+        .badge-success { background: #eafaf1; color: #1a7f37; border: 1px solid #b6e7c9; }
+        .badge-warning { background: #fff7e6; color: #a15c00; border: 1px solid #ffd591; }
+        .cta { margin-top: 18px; }
+        .cta a { display: inline-block; padding: 12px 16px; background: #1f5cff; color: #fff; border-radius: 12px; text-decoration: none; font-weight: 600; }
+        .cta a:hover { filter: brightness(1.05); box-shadow: 0 8px 24px rgba(31,92,255,0.3); }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">ADVISOR</div>
+        <div class="nav-links">
+            <a href="index.html#home">Home</a>
+            <a href="calculator.html">Calculator</a>
+            <a href="index.html#services">Services</a>
+            <a href="#ai-assistant" class="ai-assistant">
+                <span class="ai-glow-ring">
+                    <img src="bank-logos/siri.png" alt="AI Assistant" class="ai-siri-img" />
+                </span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="banner" id="banner">
+        <img id="bannerImg" src="images/Hero-bg.avif" alt="Plan Banner" />
+        <div class="overlay"></div>
+        <div class="title" id="planTitle">Loading...</div>
+    </div>
+
+    <div class="plan-container">
+        <div class="plan-card" id="planCard">
+            <div class="meta">
+                <img id="providerLogo" src="" alt="Provider" />
+                <div>
+                    <div class="provider" id="providerName">Provider</div>
+                    <div class="badge" id="riskBadge">Risk</div>
+                </div>
+            </div>
+            <div class="grid">
+                <div class="info"><div class="label">Interest</div><div class="value" id="interest"></div></div>
+                <div class="info"><div class="label">Tenure</div><div class="value" id="tenure"></div></div>
+                <div class="info"><div class="label">Min Investment</div><div class="value" id="minInv"></div></div>
+                <div class="info"><div class="label">Payout</div><div class="value" id="payout"></div></div>
+            </div>
+            <div class="section">
+                <h3>About this plan</h3>
+                <p id="description"></p>
+            </div>
+            <div class="section" id="featuresSec" style="display:none;">
+                <h3>Key features</h3>
+                <ul id="features"></ul>
+            </div>
+            <div class="section"><h3>Tax benefits</h3><p id="tax"></p></div>
+            <div class="section"><h3>Lock-in / Eligibility</h3><p id="lock"></p><p id="eligibility"></p></div>
+            <div class="cta"><a id="officialLink" target="_blank" rel="noopener">Visit official page</a></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>We provide smart banking solutions and investment guidance to help you make informed financial decisions for a secure future.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="calculator.html">Calculator</a></li>
+                    <li><a href="index.html#services">Services</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <ul class="contact-info">
+                    <li><i class="fas fa-envelope"></i> info@bestintheworld.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p>&copy; 2024 Best in the World. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    const API_BASE_URL = 'http://localhost:4000/api';
+    function q(sel){ return document.querySelector(sel); }
+    function fmtMoney(v){ if(v==null) return 'N/A'; return '₹' + Number(v).toLocaleString(); }
+    (async function(){
+        const params = new URLSearchParams(location.search);
+        const id = params.get('id');
+        if(!id){ q('#planTitle').textContent = 'Plan not found'; return; }
+        try{
+            const res = await fetch(`${API_BASE_URL}/schemes/${encodeURIComponent(id)}`);
+            if(!res.ok){ throw new Error('Failed to load plan'); }
+            const s = await res.json();
+            q('#planTitle').textContent = s.plan_name || 'Plan';
+            q('#providerName').textContent = s.provider_name || '';
+            q('#interest').textContent = s.interest_rate || '—';
+            q('#tenure').textContent = s.tenure || '—';
+            q('#minInv').textContent = fmtMoney(s.min_investment);
+            q('#payout').textContent = s.payout_frequency || '—';
+            q('#description').textContent = s.description || '';
+            q('#tax').textContent = s.tax_benefits || '—';
+            q('#lock').textContent = s.lock_in_period || '—';
+            q('#eligibility').textContent = s.eligibility || '';
+            const badge = q('#riskBadge');
+            badge.textContent = s.risk_level || '—';
+            if((s.risk_level||'').toLowerCase().includes('low')){ badge.classList.add('badge','badge-success'); }
+            else { badge.classList.add('badge','badge-warning'); }
+            if(s.provider_logo){ q('#providerLogo').src = s.provider_logo; }
+            if(s.provider_banner){ q('#bannerImg').src = s.provider_banner; }
+            const link = s.official_url || '';
+            q('#officialLink').href = link || '#';
+            const feats = Array.isArray(s.key_features) ? s.key_features : [];
+            if(feats.length){
+                q('#featuresSec').style.display = '';
+                q('#features').innerHTML = feats.map(f=>`<li>${f}</li>`).join('');
+            }
+        }catch(err){
+            q('#planTitle').textContent = 'Error loading plan';
+        }
+    })();
+    </script>
+</body>
+</html>
