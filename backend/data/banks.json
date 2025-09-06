@@ -1,32 +1,262 @@
 {
   "State Bank of India (SBI)": {
     "logo": "/bank-logos/sbi.jpg",
-    "banner": "/images/Hero-bg.avif",
+    "banner": "/bank-banners/sbi.webp",
     "official_url": "https://sbi.co.in/"
   },
   "HDFC Bank": {
     "logo": "/bank-logos/hdfc.jpg",
-    "banner": "/images/Hero-bg.avif",
+    "banner": "/bank-banners/hdfc.png",
     "official_url": "https://www.hdfcbank.com/"
   },
   "Axis Bank": {
     "logo": "/bank-logos/axis.png",
-    "banner": "/images/Hero-bg.avif",
+    "banner": "/bank-banners/axis.png",
     "official_url": "https://www.axisbank.com/"
   },
   "India Post": {
-    "logo": "/bank-logos/ippb.png",
-    "banner": "/images/Hero-bg.avif",
+    "logo": "/bank-logos/ippb.webp",
+    "banner": "/bank-banners/ippb.png",
     "official_url": "https://www.indiapost.gov.in/"
   },
   "Kotak Mahindra Bank": {
-    "logo": "/bank-logos/axis.png",
-    "banner": "/images/Hero-bg.avif",
+    "logo": "/bank-logos/kotak.png",
+    "banner": "/bank-banners/kotak.webp",
     "official_url": "https://www.kotak.com/"
   },
   "ICICI Bank": {
-    "logo": "/bank-logos/axis.png",
-    "banner": "/images/Hero-bg.avif",
+    "logo": "/bank-logos/icici.png",
+    "banner": "/bank-banners/icici.webp",
     "official_url": "https://www.icicibank.com/"
+  },
+  "Bandhan Mutual Fund": {
+    "logo": "/bank-logos/bandhan.jepg",
+    "banner": "/bank-banners/bandhan.avif",
+    "official_url": "https://www.bandhanmutualfund.com/"
+  },
+  "Motilal Oswal Mutual Fund": {
+    "logo": "/bank-logos/motilal.png",
+    "banner": "/bank-banners/motilal.avif",
+    "official_url": "https://www.motilaloswal.com/"
+  },
+  "SBI Mutual Fund": {
+    "logo": "/bank-logos/sbi.png",
+    "banner": "/bank-banners/sbi.webp",
+    "official_url": "https://www.sbimutualfund.com/"
+  },
+  "HDFC Mutual Fund": {
+    "logo": "/bank-logos/hdfc.jpg",
+    "banner": "/bank-banners/hdfc.png",
+    "official_url": "https://www.hdfcmutualfund.com/"
+  },
+  "Nippon India Mutual Fund": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/nippon.webp",
+    "official_url": "https://www.nipponindiamutualfund.com/"
+  },
+  "Baroda BNP Paribas Mutual Fund": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/baroda.webp",
+    "official_url": "https://www.barodabnpparibasmutualfund.com/"
+  },
+  "Tata Mutual Fund": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/tata.webp",
+    "official_url": "https://www.tatamutualfund.com/"
+  },
+  "Axis Mutual Fund": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/axis.png",
+    "official_url": "https://www.axismutualfund.com/"
+  },
+  "Elev8 Venture Partners": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/elev8.webp",
+    "official_url": "https://www.elev8venturepartners.com/"
+  },
+  "Nexus Select Trust": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/nexus.webp",
+    "official_url": "https://www.nexusselecttrust.com/"
+  },
+  "Tata Housing Opportunities Fund": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/tata.webp",
+    "official_url": "https://www.tatahousingopportunitiesfund.com/"
+  },
+  "Baroda BNP Paribas Business Conglomerates Fund": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/baroda.webp",
+    "official_url": "https://www.barodabnpparibasbusinessconglomeratesfund.com/"
+  },
+  "SBI MSME Loan": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/sbi.webp",
+    "official_url": "https://www.sbi.com/msme-loan"
+  },
+  "Startup India Seed Fund Scheme (SISFS)": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/sbi.webp",
+    "official_url": "https://www.sbi.com/sisfs"
+  },
+  "Bajaj Finance Fixed Deposit": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/bajaj.webp",
+    "official_url": "https://www.bajajfinance.com/fixed-deposit"
+  },
+  "Punjab National Bank Term Deposit": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/pnb.webp",
+    "official_url": "https://www.pnb.com/term-deposit"
+  },
+  "IDFC First Bank RD": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/idfc.webp",
+    "official_url": "https://www.idfcfirstbank.com/rd"
+  },
+  "India Post National Savings Certificate (NSC)": {
+    "logo": "/bank-logos/ippb.webp",
+      "banner": "/bank-banners/ippb.png",
+    "official_url": "https://www.indiapost.gov.in/nsc"
+  },
+  "Canara Bank FlexiFix Fixed Deposit": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/canara.webp",
+    "official_url": "https://www.canarabank.com/flexi-fix-fixed-deposit"
+  },
+  "Indian Overseas Bank Fixed Deposit": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/iob.webp",
+    "official_url": "https://www.iob.in/fixed-deposit"
+  },
+  "Punjab & Sind Bank Fixed Deposit": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/pnb.webp",
+    "official_url": "https://www.punjabandsindbank.co.in/fixed-deposit"
+    },
+  "IDBI Bank Fixed Deposit": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/idbi.webp",
+    "official_url": "https://www.idbibank.in/fixed-deposit"
+  },
+  "SBI Small Finance Bank Fixed Deposit": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/sbi.webp",
+    "official_url": "https://www.sbi.com/small-finance-bank-fixed-deposit"
+  },
+  "Suryoday Small Finance Bank Fixed Deposit": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/suryoday.webp",
+    "official_url": "https://www.suryoday.com/fixed-deposit"
+  },
+  "Suryoday Small Finance Bank RD": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/suryoday.webp",
+    "official_url": "https://www.suryoday.com/rd"
+  },
+  "Punjab & Sind Bank RD": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/pnb.webp",
+    "official_url": "https://www.punjabandsindbank.co.in/rd"
+  },
+  "Quant Mutual Fund": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/quant.webp",
+    "official_url": "https://www.quantmutualfund.com/"
+  },
+  "PPFAS Mutual Fund": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/ppfas.webp",
+    "official_url": "https://www.ppfasmutualfund.com/"
+  },
+  "UTI Mutual Fund": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/utimutualfund.webp",
+    "official_url": "https://www.utimutualfund.com/"
+  },
+  "ICICI Prudential Mutual Fund": {
+    "logo": "/bank-logos/icici.png",
+    "banner": "/bank-banners/icici.webp",
+    "official_url": "https://www.iciciprudentialmutualfund.com/"
+  },
+  "Major Banks & Post Office": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/majorbanksandpostoffice.webp",
+    "official_url": "https://www.majorbanksandpostoffice.com/"
+  },
+  "Bank of Baroda": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/bankofbaroda.webp",
+    "official_url": "https://www.bankofbaroda.in/"
+  },
+  "IndiaFirst Life": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/indiafirstlife.webp",
+    "official_url": "https://www.indiafirstlife.com/"
+  },
+  "Union Bank of India": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/unionbankofindia.webp",
+    "official_url": "https://www.unionbankofindia.co.in/"
+  },
+  "HDFC Life": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/hdfclife.jepg",
+    "official_url": "https://www.hdfclife.com/"
+  },
+  "Kotak Mahindra Mutual Fund": {
+    "logo": "/bank-logos/kotak.png",
+    "banner": "/bank-banners/kotak.webp",
+    "official_url": "https://www.kotakmutualfund.com/"
+  },
+  "Life Insurance Corporation of India (LIC)": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/licindia.webp",
+    "official_url": "https://www.licindia.in/"
+  },
+  "SBI Life Insurance": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/sbilife.webp",
+    "official_url": "https://www.sbilife.co.in/"
+  },
+  "HDFC Life Systematic Retirement Plan": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/hdfclife.jepg",
+    "official_url": "https://www.hdfclife.com/retirement-and-pension-plans"
+  },
+  "Punjab National Bank": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/pnb.webp",
+    "official_url": "https://www.pnb.com/"
+  },
+  "IDFC FIRST Bank": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/idfcfirstbank.webp",
+    "official_url": "https://www.idfcfirstbank.com/"
+  },
+  "Bajaj Finance Ltd.(NBFC)": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/bajajfinance.webp",
+    "official_url": "https://www.bajajfinance.com/"
+  },
+  "Canara Bank": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/canara.webp",
+    "official_url": "https://www.canarabank.com/"
+  },
+  "Suryoday Small Finance Bank ": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/suryoday.webp",
+    "official_url": "https://www.suryoday.com/"
+  },
+  "ESAF Small Finance Bank": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/esafbank.webp",
+    "official_url": "https://www.esafbank.com/"
+  },
+  "Karnataka Bank": {
+    "logo": "/bank-logos/axis.png",
+    "banner": "/bank-banners/karnatakabank.webp",
+    "official_url": "https://www.karnatakabank.com/"
   }
 }
