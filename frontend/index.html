@@ -326,12 +326,24 @@
         </div>
         <div class="ai-chat-messages" id="aiChatMessages">
             <div class="ai-chat-message ai-chat-message-bot">
-                <div class="ai-chat-avatar"><img src="logos/main-logo.webp" alt="AI" /></div>
-                <div class="ai-chat-bubble">Hello! I'm your AI banking advisor. How can I help you today?</div>
+                <div class="ai-chat-avatar"><img src="bank-logos/siri.png" alt="AI" /></div>
+                <div class="ai-chat-bubble">
+                    <div class="ai-welcome">
+                        <h4>👋 Hello! I'm your AI banking advisor</h4>
+                        <p>I can help you with:</p>
+                        <ul>
+                            <li>💰 Investment options & comparisons</li>
+                            <li>🏦 Banking products (FDs, RDs, MIS)</li>
+                            <li>📊 Financial planning guidance</li>
+                            <li>💡 Tax-saving strategies</li>
+                        </ul>
+                        <p>What would you like to know?</p>
+                    </div>
+                </div>
             </div>
         </div>
         <form class="ai-chat-input-area" id="aiChatForm">
-            <input type="text" id="aiChatInput" placeholder="Type your message..." autocomplete="off" />
+            <input type="text" id="aiChatInput" placeholder="Ask about investments, banking products..." autocomplete="off" />
             <button type="submit">Send</button>
         </form>
     </div>

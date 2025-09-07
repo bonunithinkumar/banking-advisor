@@ -542,30 +542,85 @@ if (calculateBtn) {
     });
 }
 
+// Function to format AI response with rich text
+function formatAIResponse(text) {
+    // Convert markdown-like formatting to HTML
+    return text
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/^• (.*$)/gm, '<li>$1</li>')
+        .replace(/^(\d+)\. (.*$)/gm, '<li>$2</li>')
+        .replace(/^### (.*$)/gm, '<h5>$1</h5>')
+        .replace(/^## (.*$)/gm, '<h4>$1</h4>')
+        .replace(/^# (.*$)/gm, '<h4>$1</h4>')
+        .replace(/\n\n/g, '</p><p>')
+        .replace(/^(?!<[h|l])/gm, '<p>')
+        .replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>')
+        .replace(/<\/ul><ul>/g, '');
+}
+
 if (aiChatForm) {
     aiChatForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         const msg = aiChatInput.value.trim();
         if (!msg) return;
 
+        // render user message
         const userMsg = document.createElement('div');
         userMsg.className = 'ai-chat-message ai-chat-message-user';
         userMsg.innerHTML = `<div class="ai-chat-bubble">${msg}</div>`;
         aiChatMessages.appendChild(userMsg);
-        
         aiChatInput.value = '';
         aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
-        
-        setTimeout(() => {
+
+        // typing indicator
+        const typing = document.createElement('div');
+        typing.className = 'ai-chat-message ai-chat-message-bot';
+        typing.innerHTML = `
+            <div class="ai-chat-avatar"><img src="bank-logos/siri.png" alt="AI" /></div>
+            <div class="ai-chat-bubble typing-indicator">
+                <span></span><span></span><span></span>
+            </div>
+        `;
+        aiChatMessages.appendChild(typing);
+        aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+
+        try {
+            const resp = await fetch(`${API_BASE_URL}/get-advice`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt: msg })
+            });
+
+            typing.remove();
+
+            if (!resp.ok) {
+                const err = await resp.json().catch(() => ({ error: 'Network error' }));
+                throw new Error(err.error || `HTTP ${resp.status}`);
+            }
+
+            const data = await resp.json();
+            const formattedResponse = formatAIResponse(data.message || '...');
+            
             const botMsg = document.createElement('div');
             botMsg.className = 'ai-chat-message ai-chat-message-bot';
             botMsg.innerHTML = `
-                <div class="ai-chat-avatar"><img src="images/siri-logo.png" alt="AI" /></div>
-                <div class="ai-chat-bubble">Thank you for your message. My AI capabilities are currently being upgraded. Please use the main search for now!</div>
+                <div class="ai-chat-avatar"><img src="bank-logos/siri.png" alt="AI" /></div>
+                <div class="ai-chat-bubble">${formattedResponse}</div>
             `;
             aiChatMessages.appendChild(botMsg);
             aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
-        }, 1000);
+        } catch (error) {
+            typing.remove();
+            const errMsg = document.createElement('div');
+            errMsg.className = 'ai-chat-message ai-chat-message-bot';
+            errMsg.innerHTML = `
+                <div class="ai-chat-avatar"><img src="bank-logos/siri.png" alt="AI" /></div>
+                <div class="ai-chat-bubble">Sorry, I'm having trouble connecting right now. Please try again in a moment.</div>
+            `;
+            aiChatMessages.appendChild(errMsg);
+            aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+        }
     });
 }
 
@@ -674,4 +729,6 @@ const schemeCardStyles = `
 </style>
 `;
 document.head.insertAdjacentHTML('beforeend', schemeCardStyles);
+
+
 
