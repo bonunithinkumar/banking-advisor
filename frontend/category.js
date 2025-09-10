@@ -28,7 +28,8 @@
   function fmtMoney(v){ if(v==null) return 'N/A'; return '₹' + Number(v).toLocaleString(); }
 
   function createCard(s){
-    const logo = s.provider_logo ? `<img class="scheme-logo" src="${s.provider_logo}" alt="${s.provider_name}">` : '';
+    const logoPath = s.provider_logo ? (s.provider_logo.startsWith('/') ? s.provider_logo.substring(1) : s.provider_logo) : '';
+    const logo = logoPath ? `<img class="scheme-logo" src="${logoPath}" alt="${s.provider_name}">` : '';
     const riskBadge = (s.risk_level||'').toLowerCase().includes('low') ? '<span style="background:#e8f5e8;border:1px solid #c8e6c9;color:#2d5a2d;padding:4px 10px;border-radius:999px;font-weight:600;font-size:.75rem;">Low Risk</span>' : '<span style="background:#fff3cd;border:1px solid #ffeaa7;color:#856404;padding:4px 10px;border-radius:999px;font-weight:600;font-size:.75rem;">Market Linked</span>';
     return `
       <div class="scheme-card" data-plan-id="${encodeURIComponent(s.plan_id)}">
@@ -301,13 +302,17 @@
         risk.className = 'badge ' + (((s.risk_level||'').toLowerCase().includes('low')) ? 'badge-success' : 'badge-warning');
         
         if(s.provider_logo) {
-            document.getElementById('pm-logo').src = s.provider_logo;
+            // Remove leading slash if present and ensure correct path
+            const logoPath = s.provider_logo.startsWith('/') ? s.provider_logo.substring(1) : s.provider_logo;
+            document.getElementById('pm-logo').src = logoPath;
         } else {
             document.getElementById('pm-logo').src = 'bank-logos/axis.png'; // fallback
         }
         
         if(s.provider_banner) {
-            document.getElementById('pm-banner').src = s.provider_banner;
+            // Remove leading slash if present and ensure correct path
+            const bannerPath = s.provider_banner.startsWith('/') ? s.provider_banner.substring(1) : s.provider_banner;
+            document.getElementById('pm-banner').src = bannerPath;
         }
         
         const link = s.official_url || '#';

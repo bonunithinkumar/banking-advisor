@@ -105,6 +105,19 @@ router.post('/query-data', async (req, res) => {
                 break;
         }
 
+        // Enrich results with bank metadata if it's an array of schemes
+        if (Array.isArray(results)) {
+            results = results.map(scheme => {
+                const meta = banksData[scheme.provider_name] || {};
+                return {
+                    ...scheme,
+                    provider_logo: meta.logo || null,
+                    provider_banner: meta.banner || null,
+                    official_url: meta.official_url || null
+                };
+            });
+        }
+
         // Limit results to prevent overwhelming responses
         if (Array.isArray(results) && results.length > 10) {
             results = results.slice(0, 10);

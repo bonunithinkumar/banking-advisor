@@ -15,12 +15,35 @@
     <link rel="stylesheet" href="styles/grids.css">
     <link rel="stylesheet" href="styles/footer.css">
     <link rel="stylesheet" href="styles/ai-chat-sidebar.css">
+    <link rel="stylesheet" href="styles/compare-sort.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
       body { font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
       .grid-gallery, .investment-plans, .monthly-schemes, .filtered-schemes { background: linear-gradient(135deg, #f8fbff, #f6f7ff); }
       .plan-card, .monthly-card { border-radius: 18px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+      /* Redesigned Compare/Sort section */
+      .compare-sort-section { background: linear-gradient(135deg, #f8fbff, #eef2ff); padding: 60px 0; }
+      .compare-sort-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 24px; align-items: center; }
+      .compare-left { position: relative; }
+      .compare-left .badge { position: absolute; top: 12px; left: 12px; background: rgba(255,255,255,0.9); color: #334; border: 1px solid rgba(0,0,0,0.05); padding: 6px 10px; border-radius: 999px; font-weight: 600; font-size: 12px; }
+      .compare-left img { width: 100%; border-radius: 22px; box-shadow: 0 20px 50px rgba(0,0,0,0.08); display: block; }
+      .compare-right { display: block; }
+      .tool-panel { background: rgba(255,255,255,0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.4); border-radius: 24px; padding: 28px; box-shadow: 0 24px 60px rgba(102,126,234,0.16); transition: transform .25s ease, box-shadow .25s ease, background .25s ease; }
+      .tool-panel:hover { transform: translateY(-6px); box-shadow: 0 32px 70px rgba(102,126,234,0.22); background: rgba(255,255,255,0.82); }
+      .icon-ring { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; background: linear-gradient(135deg, #667eea22, #764ba222); color: #5b6ee9; margin-bottom: 14px; }
+      .icon-ring.alt { color: #764ba2; }
+      .tool-title { margin: 0 0 6px; font-size: 1.2rem; color: #1a1a1a; letter-spacing: -0.01em; }
+      .tool-caption { margin: 0 0 14px; color: #5b6578; font-size: 0.95rem; line-height: 1.5; }
+      .btn { display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px; border-radius: 14px; background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; text-decoration: none; font-weight: 600; box-shadow: 0 10px 24px rgba(118,75,162,0.22); transition: transform .2s ease, box-shadow .2s ease, background .3s ease, filter .3s ease; border: 1px solid rgba(255,255,255,0.35); position: relative; overflow: hidden; }
+      .btn i { font-size: 0.95rem; }
+      .btn:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(118,75,162,0.32); filter: saturate(1.1); }
+      .btn.secondary { background: linear-gradient(135deg, #6ea8ff, #667eea); }
+      .btn-cta { background: linear-gradient(135deg, #6ea8ff 0%, #667eea 40%, #764ba2 100%); }
+      .btn-cta::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.35) 50%, transparent 100%); transform: translateX(-120%); transition: transform .6s ease; }
+      .btn-cta:hover::after { transform: translateX(120%); }
+      .btn-cta .pulse { position: absolute; inset: -6px; border-radius: 18px; background: radial-gradient(120px 40px at 10% 50%, rgba(255,255,255,0.2), transparent 60%); pointer-events: none; mix-blend-mode: screen; }
+      @media (max-width: 992px) { .compare-sort-container { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -151,111 +174,27 @@
             </div>
         </div>
     </section>-->
-
-    <section class="monthly-schemes">
-        <div class="container">
-            <h2>Monthly Income Schemes</h2>
-            <p class="section-subtitle">Secure monthly income options for your financial stability</p>
-            
-            <div class="monthly-schemes-grid">
-                <div class="monthly-card">
-                    <div class="bank-logo">
-                        <img src="bank-logos/ippb.png" alt="Post Office Logo">
-                    </div>
-                    <img src="/logos/bank-building.png" alt="Post Office MIS" class="scheme-img">
-                    <h3>Post Office Monthly Scheme</h3>
-                    <div class="key-features">
-                        <div class="feature">
-                            <span class="label">Returns</span>
-                            <span class="value">7.1% per year</span>
-                        </div>
-                        <div class="feature">
-                            <span class="label">Min. Investment</span>
-                            <span class="value">₹1,000</span>
-                        </div>
-                        <div class="feature">
-                            <span class="label">Term</span>
-                            <span class="value">5 years</span>
-                        </div>
-                    </div>
-                    <p class="scheme-info">Get monthly payments directly to your account. Safe government-backed investment.</p>
-                </div>
-
-                <div class="monthly-card">
-                    <div class="bank-logo">
-                        <img src="bank-logos/sbi.jpg" alt="SBI Logo">
-                    </div>
-                    <img src="/logos/money-box.png" alt="SBI Monthly Income" class="scheme-img">
-                    <h3>SBI Monthly Income Account</h3>
-                    <div class="key-features">
-                        <div class="feature">
-                            <span class="label">Returns</span>
-                            <span class="value">6.8% per year</span>
-                        </div>
-                        <div class="feature">
-                            <span class="label">Min. Investment</span>
-                            <span class="value">₹10,000</span>
-                        </div>
-                        <div class="feature">
-                            <span class="label">Term</span>
-                            <span class="value">3-5 years</span>
-                        </div>
-                    </div>
-                    <p class="scheme-info">Regular monthly income with additional benefits like loan facility.</p>
-                </div>
-
-                <div class="monthly-card">
-                    <div class="bank-logo">
-                        <img src="bank-logos/hdfc.jpg" alt="HDFC Logo">
-                    </div>
-                    <img src="/logos/money-circulation.png" alt="HDFC Monthly Income" class="scheme-img">
-                    <h3>HDFC Regular Income Plan</h3>
-                    <div class="key-features">
-                        <div class="feature">
-                            <span class="label">Returns</span>
-                            <span class="value">7.5% per year</span>
-                        </div>
-                        <div class="feature">
-                            <span class="label">Min. Investment</span>
-                            <span class="value">₹25,000</span>
-                        </div>
-                        <div class="feature">
-                            <span class="label">Term</span>
-                            <span class="value">1-10 years</span>
-                        </div>
-                    </div>
-                    <p class="scheme-info">Flexible terms with option to receive income monthly, quarterly, or yearly.</p>
-                </div>
-
-                <div class="monthly-card">
-                    <div class="bank-logo">
-                        <img src="bank-logos/axis.png" alt="Axis Bank Logo">
-                    </div>
-                    <img src="/logos/refund.png" alt="Senior Monthly Plan" class="scheme-img">
-                    <h3>Senior Citizens Savings</h3>
-                    <div class="key-features">
-                        <div class="feature">
-                            <span class="label">Returns</span>
-                            <span class="value">8.2% per year</span>
-                        </div>
-                        <div class="feature">
-                            <span class="label">Min. Investment</span>
-                            <span class="value">₹1,000</span>
-                        </div>
-                        <div class="feature">
-                            <span class="label">Age</span>
-                            <span class="value">60+ years</span>
-                        </div>
-                    </div>
-                    <p class="scheme-info">Higher returns for senior citizens with guaranteed monthly income.</p>
+    
+    <section class="compare-sort-section" id="tools">
+        <div class="compare-sort-container">
+            <div class="compare-left">
+                <span class="badge">New</span>
+                <img src="images/iStock.webp" alt="Futuristic finance and data visualization" loading="lazy">
+            </div>
+            <div class="compare-right">
+                <div class="tool-panel">
+                    <div class="icon-ring alt"><i class="fa-solid fa-arrow-down-wide-short"></i></div>
+                    <h3 class="tool-title">Quick Sort</h3>
+                    <p class="tool-caption">AI-powered sorting that understands your needs and ranks the most relevant banking and investment plans instantly. Describe your goal, risk preference, and timeframe to get a clean, prioritized list with key details and quick previews.</p>
+                    <a href="quick-sort.html" class="btn btn-cta secondary" aria-label="Go to Quick Sort"><span class="pulse"></span><i class="fa-solid fa-wand-magic-sparkles"></i> Open</a>
                 </div>
             </div>
         </div>
     </section>
 
-    
 
-    <footer class="footer">
+    <!-- Footer
+     <footer class="footer">
         <div class="footer-container">
             <div class="footer-section">
                 <h3>About Us</h3>
@@ -310,7 +249,8 @@
                 </div>
             </div>
         </div>
-    </footer>
+    </footer> -->
+    
     <div class="ai-assistant-sticky" id="aiAssistantBtn" aria-label="AI Mode">
         <span class="ai-glow-ring">
             <img src="bank-logos/siri.png" alt="AI Assistant" class="ai-siri-img" />

@@ -66,14 +66,43 @@
     <div id="moreGrid" class="scheme-grid"></div>
   </section>
 
-  <footer class="footer">
-    <div class="footer-container">
-      <div class="footer-section"><h3>About Us</h3><p>We provide smart banking solutions and investment guidance.</p></div>
-      <div class="footer-section"><h3>Quick Links</h3><ul><li><a href="index.html#home">Home</a></li><li><a href="calculator.html">Calculator</a></li></ul></div>
-      <div class="footer-section"><h3>Contact</h3><ul class="contact-info"><li>info@bestintheworld.com</li></ul></div>
+  <div class="ai-assistant-sticky" id="aiAssistantBtn" aria-label="AI Mode">
+    <span class="ai-glow-ring">
+        <img src="bank-logos/siri.png" alt="AI Assistant" class="ai-siri-img" />
+    </span>
+    <span class="ai-mode-label">AI Mode</span>
+</div>
+
+
+<div class="ai-chat-sidebar" id="aiChatSidebar">
+    <div class="ai-chat-header">
+        <span>Banking AI Advisor</span>
+        <button class="ai-chat-close" id="aiChatCloseBtn">&times;</button>
     </div>
-    <div class="footer-bottom"><div class="footer-bottom-content"><p>&copy; 2024 Best in the World.</p></div></div>
-  </footer>
+    <div class="ai-chat-messages" id="aiChatMessages">
+        <div class="ai-chat-message ai-chat-message-bot">
+            <div class="ai-chat-avatar"><img src="bank-logos/siri.png" alt="AI" /></div>
+            <div class="ai-chat-bubble">
+                <div class="ai-welcome">
+                    <h4>👋 Hello! I'm your AI banking advisor</h4>
+                    <p>I can help you with:</p>
+                    <ul>
+                        <li>💰 Investment options & comparisons</li>
+                        <li>🏦 Banking products (FDs, RDs, MIS)</li>
+                        <li>📊 Financial planning guidance</li>
+                        <li>💡 Tax-saving strategies</li>
+                    </ul>
+                    <p>What would you like to know?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form class="ai-chat-input-area" id="aiChatForm">
+        <input type="text" id="aiChatInput" placeholder="Ask about investments, banking products..." autocomplete="off" />
+        <button type="submit">Send</button>
+    </form>
+  </div>
+  <script src="main.js"></script>
 
   <script src="category.js"></script>
 </body>

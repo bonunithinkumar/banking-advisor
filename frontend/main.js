@@ -296,15 +296,21 @@ async function showPlanDetails(planId){
         risk.className = 'badge ' + (((s.risk_level||'').toLowerCase().includes('low')) ? 'badge-success' : 'badge-warning');
         
         if(s.provider_logo) {
-            document.getElementById('pm-logo').src = s.provider_logo;
+            // Remove leading slash if present and ensure correct path
+            const logoPath = s.provider_logo.startsWith('/') ? s.provider_logo.substring(1) : s.provider_logo;
+            document.getElementById('pm-logo').src = logoPath;
         } else {
             document.getElementById('pm-logo').src = 'bank-logos/axis.png'; // fallback
         }
-        
+
         if(s.provider_banner) {
-            document.getElementById('pm-banner').src = s.provider_banner;
+            // Remove leading slash if present and ensure correct path
+            const bannerPath = s.provider_banner.startsWith('/') ? s.provider_banner.substring(1) : s.provider_banner;
+            document.getElementById('pm-banner').src = bannerPath;
         }
-        
+
+        // Bank metadata should already be included from backend
+
         const link = s.official_url || '#';
         document.getElementById('pm-link').href = link;
         
@@ -335,7 +341,8 @@ function createSchemeCard(scheme) {
     const minInvestmentDisplay = scheme.min_investment 
         ? `₹${scheme.min_investment.toLocaleString()}` 
         : 'N/A';
-    const logo = scheme.provider_logo ? `<img class="scheme-logo" src="${scheme.provider_logo}" alt="${scheme.provider_name}">` : '';
+    const logoPath = scheme.provider_logo ? (scheme.provider_logo.startsWith('/') ? scheme.provider_logo.substring(1) : scheme.provider_logo) : '';
+    const logo = logoPath ? `<img class="scheme-logo" src="${logoPath}" alt="${scheme.provider_name}">` : '';
     return `
         <div class="scheme-card glass-card" data-plan-id="${encodeURIComponent(scheme.plan_id)}" role="button" tabindex="0">
             <div class="scheme-header">
