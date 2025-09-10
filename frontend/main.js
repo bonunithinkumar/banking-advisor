@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // --- Configuration ---
-const API_BASE_URL = 'http://localhost:4000/api';
+const API_BASE_URL = 'https://banking-advisor.onrender.com/api';
 
 // --- DOM Element Selection ---
 const aiAssistantBtns = document.querySelectorAll('.ai-assistant, #aiAssistantBtn');

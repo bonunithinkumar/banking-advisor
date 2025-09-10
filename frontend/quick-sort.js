@@ -1,7 +1,7 @@
 'use strict';
 
 (function(){
-  const API_BASE_URL = 'http://localhost:4000/api';
+  const API_BASE_URL = 'https://banking-advisor.onrender.com/api';
 
   // Elements
   const qsForm = document.getElementById('qsForm');
